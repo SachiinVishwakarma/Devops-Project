@@ -1,0 +1,137 @@
+/* Background */
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #6366f1, #9333ea);
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding: 40px 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Header */
+.header {
+  color: white;
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.header p {
+  opacity: 0.8;
+}
+
+/* Card (glass effect) */
+.card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  color: white;
+}
+
+/* Form */
+.form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.form input {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+.form button {
+  padding: 10px 16px;
+  background: #22c55e;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.form button:hover {
+  background: #16a34a;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+/* User card */
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  color: #333;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transition: 0.2s;
+}
+
+.user-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Avatar */
+.avatar {
+  width: 45px;
+  height: 45px;
+  background: #6366f1;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* user card layout improvement */
+.user-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* user info */
+.user-info {
+  flex: 1;
+  margin-left: 10px;
+}
+
+/* delete button */
+.delete-btn {
+  background: #ef4444;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
