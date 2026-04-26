@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    DOCKER_USER = 'sachin193'   // change
+    DOCKER_USER = 'sachin193'
   }
 
   stages {
@@ -15,13 +15,13 @@ pipeline {
 
     stage('Build Backend') {
       steps {
-        bat 'docker build -t %DOCKER_USER%/backend:latest backend'
+        bat "docker build -t ${DOCKER_USER}/backend:latest backend"
       }
     }
 
     stage('Build Frontend') {
       steps {
-        bat 'docker build -t %DOCKER_USER%/frontend:latest frontend'
+        bat "docker build -t ${DOCKER_USER}/frontend:latest frontend"
       }
     }
 
@@ -39,8 +39,8 @@ pipeline {
 
     stage('Push Images') {
       steps {
-        bat 'docker push %DOCKER_USER%/backend:latest'
-        bat 'docker push %DOCKER_USER%/frontend:latest'
+        bat "docker push ${DOCKER_USER}/backend:latest"
+        bat "docker push ${DOCKER_USER}/frontend:latest"
       }
     }
 
