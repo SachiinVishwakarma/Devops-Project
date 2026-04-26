@@ -44,14 +44,25 @@ pipeline {
       }
     }
 
+     stage('Deploy to Server') {
+      steps {
+        sshagent(['server-ssh']) {
+          bat '''
+          ssh -o StrictHostKeyChecking=no ubuntu@your-server-ip ^
+          "cd your-repo && docker-compose pull && docker-compose up -d"
+          '''
+        }
+      }
+    }
+
   }
 
   post {
     success {
-      echo "✅ Build & Push successful!"
+      echo "Build & Push successful!"
     }
     failure {
-      echo "❌ Pipeline failed!"
+      echo "Pipeline failed!"
     }
   }
 }
