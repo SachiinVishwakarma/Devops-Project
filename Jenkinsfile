@@ -2,67 +2,45 @@ pipeline {
   agent any
 
   environment {
-    DOCKER_USER = 'sachin193'
-    BACKEND_IMAGE = "$DOCKER_USER/backend:latest"
-    FRONTEND_IMAGE = "$DOCKER_USER/frontend:latest"
-    SERVER_IP = '192.168.52.1'
-    PROJECT_DIR = 'DevOps'
+    DOCKER_USER = 'sachin193'   // change
   }
 
   stages {
 
-    stage('Clone Code') {
+    stage('Check Docker') {
       steps {
-        git 'https://github.com/SachiinVishwakarma/Devops-Project.git'
+        bat 'docker --version'
       }
     }
 
-    stage('Build Backend Image') {
+    stage('Build Backend') {
       steps {
-        sh 'docker build -t $BACKEND_IMAGE ./backend'
+        bat 'docker build -t %DOCKER_USER%/backend:latest backend'
       }
     }
 
-    stage('Build Frontend Image') {
+    stage('Build Frontend') {
       steps {
-        sh 'docker build -t $FRONTEND_IMAGE ./frontend'
+        bat 'docker build -t %DOCKER_USER%/frontend:latest frontend'
       }
     }
 
-    stage('Login to Docker Hub') {
+    stage('Login Docker') {
       steps {
         withCredentials([usernamePassword(
           credentialsId: 'docker-creds',
-          usernameVariable: 'DOCKER_USER_NAME',
-          passwordVariable: 'DOCKER_PASSWORD'
+          usernameVariable: 'USER',
+          passwordVariable: 'PASS'
         )]) {
-          sh '''
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER_NAME --password-stdin
-          '''
+          bat 'echo %PASS% | docker login -u %USER% --password-stdin'
         }
       }
     }
 
     stage('Push Images') {
       steps {
-        sh '''
-        docker push $BACKEND_IMAGE
-        docker push $FRONTEND_IMAGE
-        '''
-      }
-    }
-
-    stage('Deploy to Server') {
-      steps {
-        sshagent(['server-ssh']) {
-          sh '''
-          ssh -o StrictHostKeyChecking=no ubuntu@$SERVER_IP "
-          cd $PROJECT_DIR &&
-          docker-compose pull &&
-          docker-compose up -d
-          "
-          '''
-        }
+        bat 'docker push %DOCKER_USER%/backend:latest'
+        bat 'docker push %DOCKER_USER%/frontend:latest'
       }
     }
 
@@ -70,7 +48,7 @@ pipeline {
 
   post {
     success {
-      echo "✅ Deployment successful!"
+      echo "✅ Build & Push successful!"
     }
     failure {
       echo "❌ Pipeline failed!"
