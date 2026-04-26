@@ -48,8 +48,8 @@ pipeline {
       steps {
         sshagent(['server-ssh']) {
           bat '''
-          ssh -o StrictHostKeyChecking=no ubuntu@your-server-ip ^
-          "cd your-repo && docker-compose pull && docker-compose up -d"
+          ssh -o StrictHostKeyChecking=no ubuntu@192.168.52.1 ^
+          "cd Devops-Project && docker-compose pull && docker-compose up -d"
           '''
         }
       }
